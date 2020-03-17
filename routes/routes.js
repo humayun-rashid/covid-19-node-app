@@ -3,9 +3,15 @@ const router = express.Router()
 const fetch = require('node-fetch');
 const url = 'https://covid19.mathdro.id/api'
 
+
 router.get('/', function(req,res){
-    res.send('Server is running')
+    res.render('country')
 })
+
+router.post('/', getGlobalCoronaDataByCountry, function(req,res){
+    res.send(res.response)
+})
+
 router.get('/corona/global',getGlobalCoronaData, function(req,res){
     res.send(res.response)
 })
@@ -60,7 +66,16 @@ async function getGlobalCoronaData (req,res,next){
 }
 
 async function getGlobalCoronaDataByCountry (req,res,next){
-    const countryUrl = url + '/countries/'+ req.params.country
+    let countryUrl
+    let Country
+    if (req.params.country && !req.body.country) Country = await req.params.country
+    if (!req.params.country && req.body.country) Country = await req.body.country
+    console.log (Country)
+    countryUrl = url + '/countries/'+ Country
+
+    // if (req.params.country && !req.body.country) countryUrl = url + '/countries/'+ Country
+    // if (!req.params.country && req.body.country) countryUrl = url + '/countries/'+ Country
+    
     let response
     let json
     try{
@@ -74,7 +89,13 @@ async function getGlobalCoronaDataByCountry (req,res,next){
     } catch (err) {
         return res.status(500).json({message:err.message})
     }
-    res.response = json
+    const confirm = json.confirmed['value']
+    const recovered = json.recovered['value']
+    const deaths = json.deaths['value']
+    const date = json.lastUpdate
+    const data ={"Country":Country, "Date":date, "Confirmed": confirm, "Recovered":recovered, "Deaths":deaths}
+    res.response = data
+
     next()
 }
 

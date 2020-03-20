@@ -15,5 +15,8 @@
     "express": "^4.17.1",
     "mongoose": "^5.9.5",
     "node-fetch": "^2.6.0"
+  },
+  "devDependencies": {
+    "prettier": "^1.19.1"
   }
 }

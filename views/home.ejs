@@ -1,50 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Corona Vid-19</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="col-sm-6 col-sm-offset-3">
+      <h1><span class="fa fa-sign-in"></span> CORONA VID-19</h1>
 
-        <h1><span class="fa fa-sign-in"></span> CORONA VID-19</h1>
+      <form action="/" method="POST">
+        <div class="form-group">
+          <label> Country </label>
 
-
-        <form action="/" method="POST">
-            <div class="form-group">
-                <label> Country </label>
-
-                
-
-                <input type="text" class="form-control" name="country">
-            </div>
-
-            <button type="submit" class="btn btn-warning btn-lg">Get Data</button>
-        </form>
-        <hr>
-    </div>
-
-    <div class="col-sm-6 col-sm-offset-3">
-        <h1 class="mb-4"> <%= data.country %> </h1>
-
-        <div class="card mt-4">
-            <div class="card-body">
-                <h4 class="card-title">Date:  <%= data.lastUpdate %></h4>
-                <h4 class="card-title">Confirmed: <%= data.confirmed %></h4>
-
-                <h4 class="card-title">Recovered: <%= data.recovered %></h4>
-
-                <h4 class="card-title">Deaths: <%= data.deaths %></h4>
-
-            </div>
+          <input type="text" class="form-control" name="country" />
         </div>
 
+        <button type="submit" class="btn btn-warning btn-lg">Get Data</button>
+      </form>
+      <hr />
     </div>
-</body>
 
+    <div class="col-sm-6 col-sm-offset-3">
+      <h1 class="mb-4"><%= data.country %></h1>
+
+      <div class="card mt-4">
+        <div class="card-body">
+          <h4 class="card-title">Date: <%= data.lastUpdate %></h4>
+          <h4 class="card-title">Confirmed: <%= data.confirmed %></h4>
+
+          <h4 class="card-title">Recovered: <%= data.recovered %></h4>
+
+          <h4 class="card-title">Deaths: <%= data.deaths %></h4>
+          <h4 class="card-title">New Patients Today: <%= data.newToday %></h4>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

@@ -30,14 +30,18 @@ async function getGlobalCoronaDataByCountry (req,res,next){
     if (req.params.country && !req.body.country) Country = await req.params.country
     if (!req.params.country && req.body.country) Country = await req.body.country
     console.log (Country)
-    const countryUrl = url + '/countries/'+ Country
+    res.response = await getData(Country)
+    console.log(res.response)
+    next()
+}
 
+async function getData(country){
+    const countryUrl = url + '/countries/'+ country
     let response
     let json
     try{
         response = await fetch(countryUrl)
         json = await response.json()
-
         if (json == null) {
             return res.status(404).json({message:err.message})
         }
@@ -45,20 +49,20 @@ async function getGlobalCoronaDataByCountry (req,res,next){
     } catch (err) {
         return res.status(500).json({message:err.message})
     }
+    if (json.error){
+        data = {"error": true}
+        return data
+    }
 
-    res.response = await getData(json,Country)
-    console.log(res.response)
+    if (!json.error){
+        const confirm = await json.confirmed['value']
+        const recovered = await json.recovered['value']
+        const deaths = await json.deaths['value']
+        const date = await json.lastUpdate
+        const data ={ "error":false, "Country":country,"Date":date, "Confirmed": confirm, "Recovered":recovered, "Deaths":deaths}
+        return data
+    }
 
-    next()
-}
-
-async function getData(json,country){
-    const confirm = await json.confirmed['value']
-    const recovered = await json.recovered['value']
-    const deaths = await json.deaths['value']
-    const date = await json.lastUpdate
-    const data ={ "Country":country,"Date":date, "Confirmed": confirm, "Recovered":recovered, "Deaths":deaths}
-    return data
 
 }
 

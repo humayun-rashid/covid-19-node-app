@@ -14,21 +14,26 @@ router.get('/',controller.getGlobalCoronaData, function(req,res){
     //res.send(res.response)
 })
 
-router.get('/corona/:country',controller.getGlobalCoronaDataByCountry, async function(req,res){
+// router.get('/corona/:country',controller.getGlobalCoronaDataByCountry, async function(req,res){
     
-    try{
-        const data = await res.response
-        res.render('country', { data: data }) 
-        
-        if (data == null){
-            return res.status(404).json({message:err.message})
-        }
-                
-    } catch (err){
-        return res.status(500).json({message:err.message})
-    }
-    
-})
+//    try{
+//        const data = await res.response
+//        res.render('country', { data: data }) 
+ //       
+   //     if (data == null){
+     //       return res.status(404).json({message:err.message})
+      //  }
+    //            
+    //} catch (err){
+     //   return res.status(500).json({message:err.message})
+   // }
+    //
+//})
+
+
+
+
+
 
 router.get('/countries', async function(req,res){
     
@@ -40,6 +45,16 @@ router.get('/countries', async function(req,res){
     const output = Object.keys(json.countries)
     getAllCountryData(output) 
     
+})
+
+router.get('/all',async function(req,res){
+    try{
+        const allData = await Corona.find()
+        res.json(allData)
+
+    } catch (err) {
+        res.status(500).json({message:err.message})
+    }
 })
 
 async function getAllCountryData (output){

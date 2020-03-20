@@ -9,48 +9,36 @@ async function getGlobalCoronaData (req,res,next){
     response = await fetch(url)
     json = await response.json()
     console.log(json)
-    const data = new Corona ({
+    const tempData = {
         country: country,
         confirmed: json.confirmed.value, 
         recovered:json.recovered.value,
         deaths:json.deaths.value, 
         lastUpdate: json.lastUpdate, 
-        })
+        }
+    
 
     try{
         
         findCountry = await Corona.findOne(json.country)
 
         if (!findCountry) {
-            const newData = await data.save()
-            res.response = newData
-            // res.status(201).json(newData)
-        
-        
-           
+            const data = new Corona (tempData)
+            findCountry = await Corona.findOne(json.country)
+            res.response = findCountry
+        }
+        if (findCountry) {
+            res.response = findCountry
         }
     } catch (err) {
         return res.status(500).json({message:err.message})
     }
-        res.response = findCountry
+        
         next()
-        //res.status(201).findCountry
 
-        // console.log(json['confirmed'])
-
-        // if (json == null) {
-        //    return res.status(404).json({message:err.message.value})
-        //}
-
-
-    
-    
-    
-    
-    // const data = { "Total":json.value, "Confirmed":json.confirmed.value,"Recovered":json.recovered.value, "Deaths":json.deaths.value, "Date": json.lastUpdate, "Country": "Global" }
-    //res.response = findCountry
-   
 }
+
+
 
 async function getGlobalCoronaDataByCountry (req,res,next){
     // let countryUrl
@@ -87,7 +75,7 @@ async function getData(country){
         const recovered = await json.recovered['value']
         const deaths = await json.deaths['value']
         const date = await json.lastUpdate
-        const data ={ "error":false, "Country":country,"Date":date, "Confirmed": confirm, "Recovered":recovered, "Deaths":deaths}
+        const data ={ "error":false, "country":country,"lastUpdate":date, "confirmed": confirm, "recovered":recovered, "deaths":deaths}
         return data
     }
 
@@ -135,5 +123,6 @@ module.exports.getGlobalCoronaData = getGlobalCoronaData
 module.exports.getGlobalCoronaDataByCountry = getGlobalCoronaDataByCountry
 module.exports.getData = getData
 module.exports.printData = printData
+
 
 

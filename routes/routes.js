@@ -29,11 +29,45 @@ router.get('/corona/:country',controller.getGlobalCoronaDataByCountry, async fun
 })
 
 router.get('/countries', async function(req,res){
+    
     const response = await fetch(url+'/countries')
     const json = await response.json()
     if (json == null) {
         return res.status(404).json({message:err.message.value})
     }
-    res.send(json.countries)
+    const output = Object.keys(json.countries)
+    //const allContryData = await getAllCountryData(output)
+   
+   // const data = []
+    //for ( var i = 0; i<output.length; i++) {
+     // 
+       // if (tempData.error == false) console.log(tempData)
+        
+   // }
+    // await console.log(data)
+    getAllCountryData(output) 
+    
+
+   
 })
+
+async function getAllCountryData (output){
+
+    try{
+        let data = []
+        output.forEach( async function (element){
+            const tempdata = await controller.getData(element)
+            //console.log(tempdata)
+            
+            if (tempdata.error == false) await data.push(tempdata)
+            
+            
+            
+        })
+        console.log(data)
+    } catch (err) {
+        console.log("Error")
+    }
+    
+}
 module.exports = router

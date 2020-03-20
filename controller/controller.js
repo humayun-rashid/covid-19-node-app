@@ -8,9 +8,9 @@ async function getGlobalCoronaData (req,res,next){
     let country = "Global"
     response = await fetch(url)
     json = await response.json()
+    console.log(json)
     const data = new Corona ({
-        country: country, 
-        // total: json.value,
+        country: country,
         confirmed: json.confirmed.value, 
         recovered:json.recovered.value,
         deaths:json.deaths.value, 
@@ -20,10 +20,13 @@ async function getGlobalCoronaData (req,res,next){
     try{
         
         findCountry = await Corona.findOne(json.country)
+
         if (!findCountry) {
             const newData = await data.save()
             res.response = newData
             // res.status(201).json(newData)
+        
+        
            
         }
     } catch (err) {

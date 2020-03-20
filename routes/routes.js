@@ -10,8 +10,8 @@ router.post('/',controller.getGlobalCoronaDataByCountry , function(req,res){
 })
 
 router.get('/',controller.getGlobalCoronaData, function(req,res){
-    // res.render('home', { data: res.response })
-    res.send(res.response)
+    res.render('home', { data: res.response })
+    //res.send(res.response)
 })
 
 router.get('/corona/:country',controller.getGlobalCoronaDataByCountry, async function(req,res){
@@ -40,8 +40,6 @@ router.get('/countries', async function(req,res){
     const output = Object.keys(json.countries)
     getAllCountryData(output) 
     
-
-   
 })
 
 async function getAllCountryData (output){

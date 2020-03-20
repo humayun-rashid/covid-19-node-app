@@ -36,15 +36,6 @@ router.get('/countries', async function(req,res){
         return res.status(404).json({message:err.message.value})
     }
     const output = Object.keys(json.countries)
-    //const allContryData = await getAllCountryData(output)
-   
-   // const data = []
-    //for ( var i = 0; i<output.length; i++) {
-     // 
-       // if (tempData.error == false) console.log(tempData)
-        
-   // }
-    // await console.log(data)
     getAllCountryData(output) 
     
 

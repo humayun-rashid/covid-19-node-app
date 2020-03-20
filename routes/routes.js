@@ -3,13 +3,15 @@ const router = express.Router()
 const fetch = require('node-fetch');
 const url = 'https://covid19.mathdro.id/api'
 const controller = require('../controller/controller')
+const Corona = require('../models/corona')
 
 router.post('/',controller.getGlobalCoronaDataByCountry , function(req,res){
     res.render('country', { data: res.response })
 })
 
 router.get('/',controller.getGlobalCoronaData, function(req,res){
-    res.render('home', { data: res.response })
+    // res.render('home', { data: res.response })
+    res.send(res.response)
 })
 
 router.get('/corona/:country',controller.getGlobalCoronaDataByCountry, async function(req,res){

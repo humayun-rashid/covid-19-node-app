@@ -6,6 +6,10 @@ const coronaSchema = new mongoose.Schema (
         type:String,
         required: true
     },
+    // total:{
+    //    type:String,
+    //    required: true
+    //},
     confirmed:{
         type:String,
         required: true
@@ -26,6 +30,8 @@ const coronaSchema = new mongoose.Schema (
         type:Date,
         default: Date.now
     }
+
+    
 
 })
 

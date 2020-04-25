@@ -8,7 +8,7 @@ The app can be run using:
 # INstall Node.js and NPM
 It should work for linux and Mac.
 # Install brew
-````
+```
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 brew -v
 ```

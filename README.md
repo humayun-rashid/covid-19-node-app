@@ -45,6 +45,7 @@ Server is running in 3000
 ```
 
 If you want to build and run , then go to directory and run -
-
+```
 docker build -t covid-19:latest .
 docker run -it --rm --name covid-19 -p 3000:3000 covid-19:latest
+```
